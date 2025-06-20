@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Beni Özlemedin mi?</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    #reaction {
+      margin: 20px;
+      font-size: 1.3em;
+      color: #ff9999;
+      min-height: 1.5em;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .button {
+      padding: 15px 25px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .yes {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .no {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Beni özlemedin mi?</h1>
+  <div class="buttons">
+    <button class="button yes" id="yesBtn">Evet</button>
+    <button class="button no" id="noBtn">Hayır</button>
+  </div>
+  <div id="reaction"></div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const reaction = document.getElementById("reaction");
+
+    const tepkiler = [
+      "Gerçekten mi?",
+      "İnanmıyorum...",
+      "Bunu beklemiyordum.",
+      "Kalbim kırıldı...",
+      "Bir daha düşün...",
+      "Şaka yapıyorsun, değil mi?",
+      "O kadar mı...",
+      "Sen böyle biri miydin..."
+    ];
+
+    noBtn.addEventListener("click", () => {
+      const random = Math.floor(Math.random() * tepkiler.length);
+      reaction.textContent = tepkiler[random];
+
+      const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+      yesBtn.style.fontSize = (currentSize + 4) + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      window.open("https://youtu.be/xePX15S-S-Y?si=hfc9mxDLWbweIWDT", "_blank");
+    });
+  </script>
+
+</body>
+</html>
