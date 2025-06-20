@@ -5,48 +5,72 @@
   <title>Beni Özledin mi?</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      margin-top: 100px;
-      background-color: #fefefe;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      overflow: hidden;
+      color: #fff;
     }
 
     h1 {
       font-size: 2em;
+      margin-top: 80px;
       margin-bottom: 50px;
       transition: all 0.3s ease;
     }
 
-    button {
-      font-size: 1.5em;
+    .btn {
+      font-size: 2em;
       padding: 20px 40px;
       margin: 20px;
       border: none;
-      border-radius: 10px;
+      border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     }
 
     #evet {
-      background-color: #4CAF50;
+      background-color: #28a745;
       color: white;
-      font-size: 1.5em;
+      transform-origin: center;
     }
 
     #hayir {
-      background-color: #f44336;
+      background-color: #dc3545;
       color: white;
+    }
+
+    .kalp {
+      position: absolute;
+      color: pink;
+      font-size: 2em;
+      animation: dans 2s ease-out forwards;
+    }
+
+    @keyframes dans {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-200px) rotate(720deg) scale(1.5);
+      }
     }
   </style>
 </head>
 <body>
   <h1 id="soru">Beni özledin mi?</h1>
-  <button id="evet" onclick="evetTikla()">Evet</button>
-  <button id="hayir" onclick="hayirTikla()">Hayır</button>
+  <button id="evet" class="btn" onclick="evetTikla()">✅ Evet</button>
+  <button id="hayir" class="btn" onclick="hayirTikla()">❌ Hayır</button>
 
   <script>
     let hayirSayisi = 0;
     const evetBtn = document.getElementById("evet");
+    const hayirBtn = document.getElementById("hayir");
     const soruEl = document.getElementById("soru");
 
     const sorular = [
@@ -64,14 +88,26 @@
 
     function hayirTikla() {
       if (hayirSayisi < 10) {
+        // Soru güncelle
         hayirSayisi++;
-        soruEl.textContent = sorular[hayirSayisi] || "E hadi ama...";
-        
+        soruEl.textContent = sorular[hayirSayisi] || "Ee yeter :)";
+
         // Evet butonunu büyüt
         let scaleFactor = 1 + hayirSayisi * 0.2;
         evetBtn.style.transform = `scale(${scaleFactor})`;
 
-        // 10 defa hayır basılırsa ekranı kapla
+        // Kalp efekti oluştur
+        for (let i = 0; i < 5; i++) {
+          const kalp = document.createElement("div");
+          kalp.classList.add("kalp");
+          kalp.innerHTML = "💗";
+          kalp.style.left = Math.random() * 100 + "vw";
+          kalp.style.top = "60vh";
+          document.body.appendChild(kalp);
+          setTimeout(() => kalp.remove(), 2000);
+        }
+
+        // 10. tıklama: Evet butonu ekranı kaplasın
         if (hayirSayisi === 10) {
           evetBtn.style.position = "fixed";
           evetBtn.style.top = "0";
@@ -81,7 +117,7 @@
           evetBtn.style.fontSize = "5em";
           evetBtn.style.zIndex = "999";
           soruEl.style.display = "none";
-          document.getElementById("hayir").style.display = "none";
+          hayirBtn.style.display = "none";
         }
       }
     }
