@@ -4,66 +4,21 @@
   <meta charset="UTF-8">
   <title>Beni Özledin mi?</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #000;
-      color: #fff;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.imgur.com/Vz4YoQl.jpg') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(5px);
       overflow: hidden;
-    }
-
-    h1 {
-      font-size: 2em;
-      margin-top: 80px;
-      margin-bottom: 50px;
-      text-align: center;
-      z-index: 1;
-      position: relative;
-    }
-
-    .btn {
-      font-size: 2em;
-      padding: 20px 40px;
-      margin: 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      z-index: 1;
-      position: relative;
-    }
-
-    #evet {
-      background-color: #28a745;
+      height: 100vh;
+      width: 100vw;
       color: white;
-    }
-
-    #hayir {
-      background-color: #dc3545;
-      color: white;
-    }
-
-    .kalp, .kiz {
-      position: absolute;
-      font-size: 2em;
-      animation: dans 2.5s ease-out forwards;
-    }
-
-    .kiz {
-      color: #ffc107;
-    }
-
-    @keyframes dans {
-      0% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-200px) rotate(720deg) scale(1.5);
-      }
     }
 
     #tarih {
@@ -92,12 +47,92 @@
         opacity: 0.1;
       }
     }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 50px;
+    }
+
+    .btn {
+      font-size: 2em;
+      padding: 20px 40px;
+      margin: 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      position: relative;
+    }
+
+    #evet {
+      background-color: #28a745;
+      color: white;
+      z-index: 1;
+    }
+
+    #hayir {
+      background-color: #dc3545;
+      color: white;
+      z-index: 1;
+    }
+
+    .kalp, .kiz {
+      position: absolute;
+      font-size: 2em;
+      animation: dans 2.5s ease-out forwards;
+      pointer-events: none;
+    }
+
+    .kiz {
+      color: #ffc107;
+    }
+
+    .buton-ustu-kalp {
+      animation: kalpUcu 1.8s ease-out forwards;
+      font-size: 1.5em;
+      position: absolute;
+      color: pink;
+      pointer-events: none;
+    }
+
+    @keyframes dans {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-200px) rotate(720deg) scale(1.5);
+      }
+    }
+
+    @keyframes kalpUcu {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(1.5);
+      }
+    }
   </style>
 </head>
 <body>
   <div id="tarih">21.11.24</div>
-  <h1 id="soru">Beni özledin mi?</h1>
-  <div style="text-align: center;">
+
+  <div class="container">
+    <h1 id="soru">Beni özledin mi?</h1>
     <button id="evet" class="btn" onclick="evetTikla()">✅ Evet</button>
     <button id="hayir" class="btn" onclick="hayirTikla()">❌ Hayır</button>
   </div>
@@ -126,11 +161,11 @@
         hayirSayisi++;
         soruEl.textContent = sorular[hayirSayisi] || "Ee yeter :)";
 
-        // Evet butonunu büyüt
+        // Evet büyüsün
         let scaleFactor = 1 + hayirSayisi * 0.2;
         evetBtn.style.transform = `scale(${scaleFactor})`;
 
-        // Kalp efektleri
+        // Kalpler (ekrana saçılan)
         for (let i = 0; i < 5; i++) {
           const kalp = document.createElement("div");
           kalp.classList.add("kalp");
@@ -141,7 +176,7 @@
           setTimeout(() => kalp.remove(), 2500);
         }
 
-        // Sarı saçlı kız efekti
+        // Kız emojisi
         const kiz = document.createElement("div");
         kiz.classList.add("kiz");
         kiz.innerHTML = "👱‍♀️";
@@ -150,7 +185,19 @@
         document.body.appendChild(kiz);
         setTimeout(() => kiz.remove(), 2500);
 
-        // 10 defa hayır basılırsa
+        // Hayır butonunun üzerinde kalpler
+        for (let i = 0; i < 3; i++) {
+          const butonKalp = document.createElement("div");
+          butonKalp.classList.add("buton-ustu-kalp");
+          butonKalp.innerHTML = "💘";
+          const rect = hayirBtn.getBoundingClientRect();
+          butonKalp.style.left = `${rect.left + rect.width / 2 + (Math.random() * 40 - 20)}px`;
+          butonKalp.style.top = `${rect.top - 10}px`;
+          document.body.appendChild(butonKalp);
+          setTimeout(() => butonKalp.remove(), 1800);
+        }
+
+        // 10. tıklama: ekranı kaplasın
         if (hayirSayisi === 10) {
           evetBtn.style.position = "fixed";
           evetBtn.style.top = "0";
