@@ -83,10 +83,6 @@
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const reaction = document.getElementById('reaction');
-
-    const messages =
-    ];
-
     noBtn.addEventListener('click', () => {
       const msg = messages[Math.floor(Math.random() * messages.length)];
       reaction.textContent = msg;
@@ -96,7 +92,7 @@
       yesBtn.style.fontSize = `${newSize}px`;
 
       if (newSize > 300) {
-        yesBtn.textContent = "Seç artık... 💚";
+        yesBtn.textContent = "EVET DE... 💚";
       }
     });
 
