@@ -5,96 +5,90 @@
   <title>Beni Özledin mi?</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #1f1f1f, #2c2c2c);
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: white;
+      font-family: Arial, sans-serif;
       text-align: center;
-      overflow: hidden;
+      margin-top: 100px;
+      background-color: #fefefe;
     }
+
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+      font-size: 2em;
+      margin-bottom: 50px;
+      transition: all 0.3s ease;
     }
-    #reaction {
-      font-size: 1.2em;
-      color: #ffaaaa;
-      margin: 15px;
-      height: 1.5em;
-    }
-    .buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      z-index: 2;
-    }
-    .button {
-      padding: 15px 30px;
-      font-size: 1.3em;
+
+    button {
+      font-size: 1.5em;
+      padding: 20px 40px;
+      margin: 20px;
       border: none;
-      border-radius: 30px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      z-index: 2;
     }
-    .button:hover {
-      transform: translateY(-3px);
+
+    #evet {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 1.5em;
     }
-    .yes {
-      background: linear-gradient(45deg, #00e676, #69f0ae);
-      color: #000;
-      position: relative;
-      z-index: 1;
-    }
-    .no {
-      background: linear-gradient(45deg, #ff5252, #ff8a80);
-      color: #000;
-      position: relative;
-      z-index: 2;
+
+    #hayir {
+      background-color: #f44336;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <h1>Beni özledin mi?</h1>
-  <div class="buttons">
-    <button class="button yes" id="yesBtn">Evet</button>
-    <button class="button no" id="noBtn">Hayır</button>
-  </div>
-  <div id="reaction"></div>
+  <h1 id="soru">Beni özledin mi?</h1>
+  <button id="evet" onclick="evetTikla()">Evet</button>
+  <button id="hayir" onclick="hayirTikla()">Hayır</button>
+
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const reaction = document.getElementById('reaction');
-    const messages = [
-      "Üzüldüm...",
-      "Gerçekten mi?",
-      "İnanmıyorum...",
-      "Sadece birazcık mı?",
-      "Ben seni özlemiştim...",
-      "Bu cevabı hak ettiğimi mi düşünüyorsun?",
-      "Şaka yapıyorsun, değil mi?",
-      "Kalbim kırıldı..."
+    let hayirSayisi = 0;
+    const evetBtn = document.getElementById("evet");
+    const soruEl = document.getElementById("soru");
+
+    const sorular = [
+      "Beni özledin mi?",
+      "Bence özledin",
+      "Yalan söylüyorsun",
+      "İnat mı ediyorsun?",
+      "Şimdi evet’e basacaksın di mi:)",
+      "Profilime hiç baktın mı?",
+      "Merak etmiyor musun?",
+      "Sesimi de mi özlemedin?",
+      "Bas şu evet’e!",
+      "Mecburen evet’e basacaksın"
     ];
-    noBtn.addEventListener('click', () => {
-      const msg = messages[Math.floor(Math.random() * messages.length)];
-      reaction.textContent = msg;
-      const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-      const newSize = currentSize + 10;
-      yesBtn.style.fontSize = `${newSize}px`;
-      if (newSize > 300) {
-        yesBtn.textContent = "Seç artık... 💚";
+
+    function hayirTikla() {
+      if (hayirSayisi < 10) {
+        hayirSayisi++;
+        soruEl.textContent = sorular[hayirSayisi] || "E hadi ama...";
+        
+        // Evet butonunu büyüt
+        let scaleFactor = 1 + hayirSayisi * 0.2;
+        evetBtn.style.transform = `scale(${scaleFactor})`;
+
+        // 10 defa hayır basılırsa ekranı kapla
+        if (hayirSayisi === 10) {
+          evetBtn.style.position = "fixed";
+          evetBtn.style.top = "0";
+          evetBtn.style.left = "0";
+          evetBtn.style.width = "100vw";
+          evetBtn.style.height = "100vh";
+          evetBtn.style.fontSize = "5em";
+          evetBtn.style.zIndex = "999";
+          soruEl.style.display = "none";
+          document.getElementById("hayir").style.display = "none";
+        }
       }
-    });
-    yesBtn.addEventListener('click', () => {
-      window.open("https://youtu.be/Xo_UgMcgsCY?si=uT_ttDDNWdpQHx9M", "_blank");
-    });
+    }
+
+    function evetTikla() {
+      window.location.href = "https://youtu.be/Xo_UgMcgsCY?si=Vc56aPq4-eJGpOQf";
+    }
   </script>
 </body>
 </html>
