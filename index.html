@@ -6,19 +6,20 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      text-align: center;
       margin: 0;
       padding: 0;
       background-color: #000;
-      overflow: hidden;
       color: #fff;
+      overflow: hidden;
     }
 
     h1 {
       font-size: 2em;
       margin-top: 80px;
       margin-bottom: 50px;
-      transition: all 0.3s ease;
+      text-align: center;
+      z-index: 1;
+      position: relative;
     }
 
     .btn {
@@ -30,12 +31,13 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      z-index: 1;
+      position: relative;
     }
 
     #evet {
       background-color: #28a745;
       color: white;
-      transform-origin: center;
     }
 
     #hayir {
@@ -43,11 +45,14 @@
       color: white;
     }
 
-    .kalp {
+    .kalp, .kiz {
       position: absolute;
-      color: pink;
       font-size: 2em;
-      animation: dans 2s ease-out forwards;
+      animation: dans 2.5s ease-out forwards;
+    }
+
+    .kiz {
+      color: #ffc107;
     }
 
     @keyframes dans {
@@ -60,12 +65,42 @@
         transform: translateY(-200px) rotate(720deg) scale(1.5);
       }
     }
+
+    #tarih {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3em;
+      color: #ff69b4;
+      opacity: 0.15;
+      animation: dalga 5s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes dalga {
+      0% {
+        transform: translateX(-50%) rotate(0deg) scale(1);
+        opacity: 0.1;
+      }
+      50% {
+        transform: translateX(-50%) rotate(360deg) scale(1.2);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateX(-50%) rotate(720deg) scale(1);
+        opacity: 0.1;
+      }
+    }
   </style>
 </head>
 <body>
+  <div id="tarih">21.11.24</div>
   <h1 id="soru">Beni özledin mi?</h1>
-  <button id="evet" class="btn" onclick="evetTikla()">✅ Evet</button>
-  <button id="hayir" class="btn" onclick="hayirTikla()">❌ Hayır</button>
+  <div style="text-align: center;">
+    <button id="evet" class="btn" onclick="evetTikla()">✅ Evet</button>
+    <button id="hayir" class="btn" onclick="hayirTikla()">❌ Hayır</button>
+  </div>
 
   <script>
     let hayirSayisi = 0;
@@ -88,7 +123,6 @@
 
     function hayirTikla() {
       if (hayirSayisi < 10) {
-        // Soru güncelle
         hayirSayisi++;
         soruEl.textContent = sorular[hayirSayisi] || "Ee yeter :)";
 
@@ -96,7 +130,7 @@
         let scaleFactor = 1 + hayirSayisi * 0.2;
         evetBtn.style.transform = `scale(${scaleFactor})`;
 
-        // Kalp efekti oluştur
+        // Kalp efektleri
         for (let i = 0; i < 5; i++) {
           const kalp = document.createElement("div");
           kalp.classList.add("kalp");
@@ -104,10 +138,19 @@
           kalp.style.left = Math.random() * 100 + "vw";
           kalp.style.top = "60vh";
           document.body.appendChild(kalp);
-          setTimeout(() => kalp.remove(), 2000);
+          setTimeout(() => kalp.remove(), 2500);
         }
 
-        // 10. tıklama: Evet butonu ekranı kaplasın
+        // Sarı saçlı kız efekti
+        const kiz = document.createElement("div");
+        kiz.classList.add("kiz");
+        kiz.innerHTML = "👱‍♀️";
+        kiz.style.left = Math.random() * 100 + "vw";
+        kiz.style.top = "60vh";
+        document.body.appendChild(kiz);
+        setTimeout(() => kiz.remove(), 2500);
+
+        // 10 defa hayır basılırsa
         if (hayirSayisi === 10) {
           evetBtn.style.position = "fixed";
           evetBtn.style.top = "0";
