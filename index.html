@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Beni Özledin mi?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -11,126 +12,46 @@
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: url('https://i.imgur.com/Vz4YoQl.jpg') no-repeat center center fixed;
-      background-size: cover;
-      backdrop-filter: blur(5px);
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
+      background-color: #000;
       color: white;
-    }
-
-    #tarih {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 3em;
-      color: #ff69b4;
-      opacity: 0.15;
-      animation: dalga 5s infinite ease-in-out;
-      z-index: 0;
-    }
-
-    @keyframes dalga {
-      0% {
-        transform: translateX(-50%) rotate(0deg) scale(1);
-        opacity: 0.1;
-      }
-      50% {
-        transform: translateX(-50%) rotate(360deg) scale(1.2);
-        opacity: 0.2;
-      }
-      100% {
-        transform: translateX(-50%) rotate(720deg) scale(1);
-        opacity: 0.1;
-      }
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 1;
     }
 
     h1 {
       font-size: 2em;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
 
     .btn {
-      font-size: 2em;
+      font-size: 1.5em;
       padding: 20px 40px;
-      margin: 20px;
+      margin: 15px;
       border: none;
-      border-radius: 20px;
+      border-radius: 15px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      position: relative;
     }
 
     #evet {
       background-color: #28a745;
       color: white;
-      z-index: 1;
     }
 
     #hayir {
       background-color: #dc3545;
       color: white;
-      z-index: 1;
-    }
-
-    .kalp, .kiz {
-      position: absolute;
-      font-size: 2em;
-      animation: dans 2.5s ease-out forwards;
-      pointer-events: none;
-    }
-
-    .kiz {
-      color: #ffc107;
-    }
-
-    .buton-ustu-kalp {
-      animation: kalpUcu 1.8s ease-out forwards;
-      font-size: 1.5em;
-      position: absolute;
-      color: pink;
-      pointer-events: none;
-    }
-
-    @keyframes dans {
-      0% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-200px) rotate(720deg) scale(1.5);
-      }
-    }
-
-    @keyframes kalpUcu {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-60px) scale(1.5);
-      }
     }
   </style>
 </head>
 <body>
-  <div id="tarih">21.11.24</div>
-
   <div class="container">
     <h1 id="soru">Beni özledin mi?</h1>
     <button id="evet" class="btn" onclick="evetTikla()">✅ Evet</button>
@@ -160,44 +81,9 @@
       if (hayirSayisi < 10) {
         hayirSayisi++;
         soruEl.textContent = sorular[hayirSayisi] || "Ee yeter :)";
-
-        // Evet büyüsün
         let scaleFactor = 1 + hayirSayisi * 0.2;
         evetBtn.style.transform = `scale(${scaleFactor})`;
 
-        // Kalpler (ekrana saçılan)
-        for (let i = 0; i < 5; i++) {
-          const kalp = document.createElement("div");
-          kalp.classList.add("kalp");
-          kalp.innerHTML = "💗";
-          kalp.style.left = Math.random() * 100 + "vw";
-          kalp.style.top = "60vh";
-          document.body.appendChild(kalp);
-          setTimeout(() => kalp.remove(), 2500);
-        }
-
-        // Kız emojisi
-        const kiz = document.createElement("div");
-        kiz.classList.add("kiz");
-        kiz.innerHTML = "👱‍♀️";
-        kiz.style.left = Math.random() * 100 + "vw";
-        kiz.style.top = "60vh";
-        document.body.appendChild(kiz);
-        setTimeout(() => kiz.remove(), 2500);
-
-        // Hayır butonunun üzerinde kalpler
-        for (let i = 0; i < 3; i++) {
-          const butonKalp = document.createElement("div");
-          butonKalp.classList.add("buton-ustu-kalp");
-          butonKalp.innerHTML = "💘";
-          const rect = hayirBtn.getBoundingClientRect();
-          butonKalp.style.left = `${rect.left + rect.width / 2 + (Math.random() * 40 - 20)}px`;
-          butonKalp.style.top = `${rect.top - 10}px`;
-          document.body.appendChild(butonKalp);
-          setTimeout(() => butonKalp.remove(), 1800);
-        }
-
-        // 10. tıklama: ekranı kaplasın
         if (hayirSayisi === 10) {
           evetBtn.style.position = "fixed";
           evetBtn.style.top = "0";
