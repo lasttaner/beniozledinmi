@@ -2,110 +2,95 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Beni Özledin mi?</title>
+  <title>Beni Özlemedin mi?</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #1f1f1f, #2c2c2c);
+      background-color: #111;
+      color: #fff;
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      color: white;
+      margin: 0;
       text-align: center;
-      overflow: hidden;
     }
+
     h1 {
-      font-size: 2.5em;
+      font-size: 2em;
       margin-bottom: 20px;
     }
+
     #reaction {
-      font-size: 1.2em;
-      color: #ffaaaa;
-      margin: 15px;
-      height: 1.5em;
+      margin: 20px;
+      font-size: 1.3em;
+      color: #ff9999;
+      min-height: 1.5em;
     }
+
     .buttons {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
-      z-index: 2;
     }
+
     .button {
-      padding: 15px 30px;
-      font-size: 1.3em;
+      padding: 15px 25px;
+      font-size: 1.5em;
       border: none;
-      border-radius: 30px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      z-index: 2;
     }
-    .button:hover {
-      transform: translateY(-3px);
-    }
+
     .yes {
-      background: linear-gradient(45deg, #00e676, #69f0ae);
-      color: #000;
-      position: relative;
-      z-index: 1;
+      background-color: #4caf50;
+      color: white;
     }
+
     .no {
-      background: linear-gradient(45deg, #ff5252, #ff8a80);
-      color: #000;
-      position: relative;
-      z-index: 2;
+      background-color: #f44336;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <h1>Beni özledin mi?</h1>
+
+  <h1>Beni özlemedin mi?</h1>
   <div class="buttons">
     <button class="button yes" id="yesBtn">Evet</button>
     <button class="button no" id="noBtn">Hayır</button>
   </div>
   <div id="reaction"></div>
+
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const reaction = document.getElementById('reaction');
-    const messages = [
-      "Evet'e basmalısın...",
-      "Özledin di mi :)",
-      "İnatlaşma evet'e bas...",
-      "Sadece evet'e bas ya",
-      "Hayır'ı kabul etmiyorum...",
-      "Hayır'a basmaya devam et sen",
-      "Boşa uğraşma evet de",
-      "Evet'e basarsan ilerleyebiliriz..."
-      "İnat yapma evet'e bas"
-      "Evet der misin?"
-      "Hadi amaaa:)"
-      "Ayıp ediyorsun"
-      "Delirtme beni evet'e bas :)"
-      "Tamam..Sen evet diyene kadar devam ederiz"
-      "Hhahaha denemeye devam et"
-      "Sonunda evet diyeceksin"
-      "Pes et artık!"
-      "Hadi evet de"
-      "Sen evet'e basana kadar buradayız"
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const reaction = document.getElementById("reaction");
+
+    const tepkiler = [
+      "Gerçekten mi?",
+      "İnanmıyorum...",
+      "Bunu beklemiyordum.",
+      "Kalbim kırıldı...",
+      "Bir daha düşün...",
+      "Şaka yapıyorsun, değil mi?",
+      "O kadar mı...",
+      "Sen böyle biri miydin..."
     ];
-    noBtn.addEventListener('click', () => {
-      const msg = messages[Math.floor(Math.random() * messages.length)];
-      reaction.textContent = msg;
+
+    noBtn.addEventListener("click", () => {
+      const random = Math.floor(Math.random() * tepkiler.length);
+      reaction.textContent = tepkiler[random];
+
       const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-      const newSize = currentSize + 10;
-      yesBtn.style.fontSize = `${newSize}px`;
-      if (newSize > 300) {
-        yesBtn.textContent = "EVET 💚";
-      }
+      yesBtn.style.fontSize = (currentSize + 4) + "px";
     });
-    yesBtn.addEventListener('click', () => {
-      window.open("https://youtu.be/Xo_UgMcgsCY?si=uT_ttDDNWdpQHx9M", "_blank");
+
+    yesBtn.addEventListener("click", () => {
+      window.open("https://youtu.be/xePX15S-S-Y?si=hfc9mxDLWbweIWDT", "_blank");
     });
   </script>
+
 </body>
 </html>
